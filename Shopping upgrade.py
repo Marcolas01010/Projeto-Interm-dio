@@ -1,37 +1,71 @@
+produtos = ["Banana", "Maçã", "Arroz"]
+precos = [1.0, 1.5, 5.0]
+quantidade = [50, 30, 20]
+carrinho_produtos = []
+carrinho_quantidade = []
 
-lista= "Bananas [50 Unidades|preço 1.99] || Arroz [30 Unidades|preço 2.99] ||  Feijão [20 Unidades]|3.99"
-lista_unidade = [50 ,30, 20]
-lista_preco =  [.99,  2.99,3.99]
-lista_carrinho = []
-def ver_stock():
-    print("")
-def comprar_produto():
-    print("")
-def remover_carrinho():
-    print("")
+
+#produtos disponiveis
+#produtos_disponiveis = [
+    #{"id": 1, "nome": "banana", "preco": 1.0},
+    #{"id": 2, "nome": "Maçã", "preco": 1.5},
+    #{"id": 3, "nome": "arroz", "preco": 5.0}
+#]
+
+#def remover_produto(lista, nome_produto):
+    #return [produto for produto in lista if produto["nome"] != nome_produto]
+
+
+def exibir_stock():
+    exibir_stock = print("Produtos",produtos,"preços",precos,"quantidade",quantidade)
+
+
+def adicionar_ao_carrinho():
+    produto = input("Qual produto queres adicionar")
+    if produto not in  produtos :
+        print("Esse produto não esta na loja")
+    else:
+        indice = produtos.index(produto)
+        if produto not in carrinho_produtos:
+            carrinho_produtos.append(produto)
+        unidades = int(input("Qual a quantidade do produto ?"))
+        if unidades>quantidade[indice]:
+            print("Essa quantidade não esta na loja")
+            carrinho_quantidade.append(quantidade)
+            unidades[indice]-=quantidade
+        if carrinho_quantidade [indice]:
+            carrinho_quantidade[indice] += quantidade
+            unidades[indice] -= quantidade
+            print("O produto foi adicionado ao carrinho com sucesso!")
+
+
+def remover_do_carrinho():
+    input("Qual produto gostaria de remover do carrinho")
+
+
 def finalizar_compra():
-    print("")
+    print("Voce finalizou a compra")
+
 def adicionar_stock():
-    print("")
+    input("Qual produto gostaria de adicionar no stock")
 
-
-
-
-
+# Menu principal
 while True:
-    print ("1. Ver Stock\n 2. Comprar produto \n 3. Remover do carrinho \n 4. Finalizar compra \n 5. Adicionar Estoque \n 6. Sair")
-    escolha = input ("Escolha uma opção")
-    if escolha == "1":
-        ver_stock()
-    elif escolha == "2":
-        comprar_produto(lista_preco+lista)
-    elif escolha == "3":
-        remover_carrinho()
-    elif escolha == "4":
+    print("\n1. Ver Stock\n2. Comprar Produto\n3. Remover do Carrinho\n4. Finalizar Compra\n5. Adicionar Stock\n6. Sair")
+    opcao = input("Escolha uma opção: ")
+    if opcao == "1":
+        exibir_stock()
+    elif opcao == "2":
+        adicionar_ao_carrinho()
+    elif opcao == "3":
+        remover_do_carrinho()
+    elif opcao == "4":
         finalizar_compra()
-    elif escolha == "5":
-         adicionar_stock()
-    elif escolha == "6":
-        print ("Sair")
+    elif opcao == "5":
+        adicionar_stock()
+
+    elif opcao == "6":
+        print("Saiu...")
         break
+
 
