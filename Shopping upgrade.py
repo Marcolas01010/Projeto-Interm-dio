@@ -3,51 +3,54 @@ precos = [1.0, 1.5, 5.0]
 quantidade = [50, 30, 20]
 carrinho_produtos = []
 carrinho_quantidade = []
-
-
-#produtos disponiveis
-#produtos_disponiveis = [
-    #{"id": 1, "nome": "banana", "preco": 1.0},
-    #{"id": 2, "nome": "Maçã", "preco": 1.5},
-    #{"id": 3, "nome": "arroz", "preco": 5.0}
-#]
-
-#def remover_produto(lista, nome_produto):
-    #return [produto for produto in lista if produto["nome"] != nome_produto]
-
-
 def exibir_stock():
-    exibir_stock = print("Produtos",produtos,"preços",precos,"quantidade",quantidade)
-
-
+    print("\nProdutos:", produtos)
+    print("Preços:", precos)
+    print("Quantidade em estoque:", quantidade)
 def adicionar_ao_carrinho():
     produto = input("Qual produto queres adicionar")
-    if produto not in  produtos :
+    if produto not in produtos:
         print("Esse produto não esta na loja")
     else:
         indice = produtos.index(produto)
+        unidades = int(input("Qual a quantidade do produto ?"))
+        if unidades > quantidade[indice]:
+            print("Essa quantidade não esta na loja")
         if produto not in carrinho_produtos:
             carrinho_produtos.append(produto)
-        unidades = int(input("Qual a quantidade do produto ?"))
-        if unidades>quantidade[indice]:
-            print("Essa quantidade não esta na loja")
-            carrinho_quantidade.append(quantidade)
-            unidades[indice]-=quantidade
-        if carrinho_quantidade [indice]:
-            carrinho_quantidade[indice] += quantidade
-            unidades[indice] -= quantidade
+            carrinho_quantidade.append(unidades)
             print("O produto foi adicionado ao carrinho com sucesso!")
-
-
+        else:
+            indice_carrinho = carrinho_produtos.index(produto)
+            carrinho_quantidade[indice_carrinho] += unidades
+            print("O produto foi adicionado ao carrinho com sucesso!")
+        quantidade[indice] -= unidades
 def remover_do_carrinho():
-    input("Qual produto gostaria de remover do carrinho")
+    produto_remover= input("Qual produto gostaria de remover do carrinho")
+    if produto_remover not in carrinho_produtos:
+        print("Esse produto não esta na loja")
+    else:
+        indice = carrinho_produtos.index(produto_remover)
+        quantidade_removida = carrinho_quantidade[indice]
+        carrinho_produtos.remove(produto_remover)
+        carrinho_quantidade.remove(quantidade_removida)
+        indice_loja = produtos.index(produto_remover)
+        quantidade[indice_loja]+=quantidade_removida
 
+        print(f"O produto '{produto_remover}'foi removido do carrinho. Quantidade removida :{quantidade_removida}")
 
 def finalizar_compra():
     print("Voce finalizou a compra")
 
 def adicionar_stock():
-    input("Qual produto gostaria de adicionar no stock")
+   produto = input("Qual produto gostaria de adicionar no stock")
+   if produto not in produtos :
+       produtos.append(produto)
+       preco =float(input("Qual é o preço do produto"))
+       precos.append(preco)
+       quantidade_nova= int(input("Qual é a quantidade Inicial ?"))
+       quantidade.append(quantidade_nova)
+       print(f"O produto '{produto}' foi adicionado ao estoque com {quantidade_nova} unidades.")
 
 # Menu principal
 while True:
@@ -67,5 +70,3 @@ while True:
     elif opcao == "6":
         print("Saiu...")
         break
-
-
